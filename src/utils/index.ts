@@ -2,9 +2,10 @@ import * as changeCase from "change-case";
 
 
 export const generateControllerTemplate = (resourceName: string): string => {
+  const pascalCaseName = changeCase.pascalCase(resourceName!.toLowerCase());
   const controllerTemplate: string = ` 
   import 'package:get/get.dart';
-class ${resourceName}Controller  extends GetxController {
+class ${pascalCaseName}Controller  extends GetxController {
 
 }
   `;
@@ -13,11 +14,14 @@ class ${resourceName}Controller  extends GetxController {
 
 export const generateScreenTemplate = (resourceName: string): string => { 
   const snakeCaseName = changeCase.snakeCase(resourceName.toLowerCase());
+  const pascalCaseName = changeCase.pascalCase(resourceName!.toLowerCase());
+   
   const pageTemplate: string = `
 import 'package:flutter/material.dart';  
 import 'package:get/get.dart';
-import '../../../controllers/${snakeCaseName}_controller.dart';
-class ${resourceName}Screen extends GetView<${resourceName}Controller> {
+import './${snakeCaseName}_controller.dart';
+class ${pascalCaseName}Screen extends GetView<${pascalCaseName}Controller> {
+  const ${pascalCaseName}Screen({Key? key}) : super(key:key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,13 +41,14 @@ class ${resourceName}Screen extends GetView<${resourceName}Controller> {
 
 export const generateBindingTemplate = (resourceName: string): string => { 
   const snakeCaseName = changeCase.snakeCase(resourceName.toLowerCase());
+  const pascalCaseName = changeCase.pascalCase(resourceName!.toLowerCase());
   const bindingTemplate: string = ` 
   import 'package:get/get.dart';
-  import '../controllers/${snakeCaseName}_controller.dart'; 
-class ${resourceName}Binding implements Bindings{
+  import './${snakeCaseName}_controller.dart'; 
+class ${pascalCaseName}Binding implements Bindings{
   @override
   void dependencies() {
-    Get.lazyPut<${resourceName}Controller>(() => ${resourceName}Controller());
+    Get.lazyPut<${pascalCaseName}Controller>(() => ${pascalCaseName}Controller());
   }
 }
   `;

@@ -28,8 +28,17 @@
    {
     "command": "fffs.generateResource",
     "title": "FFFS: Generate GetX Module"
-   }
-  ]
+   } 
+  ],
+  "menus": {
+    "explorer/context": [
+        {
+            "command": "fffs.generateResource",
+            "title": "FFFS: Generate GetX Module",            
+            "when": "explorerResourceIsFolder"
+           }
+    ]
+  }
  },
  "scripts": {
   "vscode:prepublish": "npm run package",

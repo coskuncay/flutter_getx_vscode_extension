@@ -10,8 +10,10 @@ import { generateBindingTemplate, generateControllerTemplate, generateScreenTemp
 export const generateResource =  async (uri: Uri): Promise<void> => {
 
   if(workspace.workspaceFolders !== undefined) {
-    let projectFolder = workspace.workspaceFolders[0].uri.fsPath;
+    let projectFolder = uri.fsPath;
     
+    // let targetDirectory = uri.fsPath;
+    // console.log(targetDirectory);
     try {
     
       const resourceName = await promptForResourceName();
@@ -21,7 +23,7 @@ export const generateResource =  async (uri: Uri): Promise<void> => {
       }
       const pascalCaseName = changeCase.pascalCase(resourceName!.toLowerCase());
       const snakeCaseName = changeCase.snakeCase(resourceName!.toLowerCase());
-      const baseDirectory = `${projectFolder}/lib/modules`;
+      const baseDirectory = `${projectFolder}`;
 
       await generateCode(pascalCaseName,snakeCaseName, baseDirectory);
 
@@ -37,6 +39,8 @@ export const generateResource =  async (uri: Uri): Promise<void> => {
   }
 };
 
+ 
+
 async function generateCode(
   resourceName: string,
   folderName: string,
@@ -50,9 +54,9 @@ async function generateCode(
   }
  
 
-  const bindingTemplate = generateBindingTemplate(resourceName);
-  const controllerTemplate = generateControllerTemplate(resourceName);
-  const screenTemplate = generateScreenTemplate(resourceName);
+  const bindingTemplate = generateBindingTemplate(folderName);
+  const controllerTemplate = generateControllerTemplate(folderName);
+  const screenTemplate = generateScreenTemplate(folderName);
 
   await Promise.all([
     createFile(folderName, moduleFolder, controllerTemplate, "controller"),
