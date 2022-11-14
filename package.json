@@ -2,7 +2,7 @@
  "name": "fffs",
  "displayName": "Flutter GetX Module Generator",
  "description": "Flutter Feature First Structure GetX Module Generator",
- "version": "0.1.0",
+ "version": "0.2.0",
  "publisher": "justecdev",
  "engines": {
   "vscode": "^1.56.0"
